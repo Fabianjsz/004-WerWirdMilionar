@@ -1,1 +1,2 @@
 - [ ] Edit editDatabase so you can edit multiple Entrys in one primary key entry
+- [ ] Create a second popup function, for when deleting or editing data
