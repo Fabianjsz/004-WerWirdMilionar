@@ -1,0 +1,1 @@
+- [ ] Edit editDatabase so you can edit multiple Entrys in one primary key entry
