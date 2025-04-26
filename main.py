@@ -1,6 +1,7 @@
-from functions import *
-from gui.py import *
+from databaseUtility import *
+from gui import *
 
 
-if __name__ == __main.py__:
+
+if __name__ == "__main__":
     createTable("Cool.db")

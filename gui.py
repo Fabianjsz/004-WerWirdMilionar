@@ -1,10 +1,10 @@
 #import
 from tkinter import *
 import tkinter as tk
-from functools import partial
-from functions import *
-from tkinter.messagebox import showinfo
+from utility import informationWindow
+from databaseUtility import checkFrage
 from tkinter.scrolledtext import ScrolledText
+
 
 
 #Variablen
@@ -13,6 +13,7 @@ aText = "Antwort A"
 bText = "Antwort B"
 cText = "Antwort C"
 dText = "Antwort D"
+
 
 #funktion
 
@@ -31,18 +32,38 @@ def delete_popup():
     eingabe = tk.Entry(win)
     eingabe.place(width=40, y=20, x=80)
     
-    deleteButton = Button(win, text="Lösche Nummer", bg="red", command=partial(confirmation_window()))
+    deleteButton = Button(win, text="Lösche Nummer", bg="red", command=lambda:confirmation_window(eingabe))
     deleteButton.place(width = 100, y=50, x =50)
 
-def confirmation_window():
-    confirmaton = tk.Toplevel()
+
+def confirmation_window(entry):
+    confirmation = tk.Toplevel()
     confirmation.wm_title("sind sie sich sicher?")
-    win.geometry("200x80")
+    confirmation.geometry("200x80")
     
     conLabel = Label(confirmation, text="möchten sie die Frage löschen?")
     conLabel.place(width=200)
     
+    yes = Button(confirmation, text="Ja", bg="green", fg="white", command=lambda:confirmation_yes(entry))
+    yes.place(y=20,width=100, height=60)    
+
+    no = Button(confirmation, text="Nein",bg="red", fg="white", command=lambda:confirmation_no())
+    no.place(y=20, x=100, width=100, height="60")
+
+
+def confirmation_yes(entry):
+    fragenNr = entry.get()
+    print(checkFrage(fragenNr))
+
+
+
     
+    
+def confirmation_no():
+    pass
+
+
+
 
 def search_popup():
     win = tk.Toplevel()
