@@ -1,8 +1,9 @@
 #import
 from tkinter import *
 import tkinter as tk
+from tkinter import ttk
 from utility import informationWindow
-from databaseUtility import checkFrage
+from databaseUtility import checkFrage, returnTable
 from tkinter.scrolledtext import ScrolledText
 
 
@@ -80,6 +81,11 @@ def search_popup():
     searchButton.place(width = 100, y=50, x =50)
     
 
+def updateData(data):
+    tempData = returnTable()
+    for row in tempData:
+        data.insert("", tk.END, values=row)
+
 
 
 #GUI
@@ -93,8 +99,26 @@ root.geometry("1200x800")
 dbLabel = Label(root)
 dbLabel.place(x=750, y=50, width=400, height=600) #Anordnung durch Place-Manager
 
-st = ScrolledText(dbLabel, width=400, height =700)
-st.pack()
+#Definierung der Spalten
+columns = ("Nr", "Frage")
+
+# Erstellung des Tabellenobjektes
+data = ttk.Treeview(dbLabel, columns=columns, show="headings")
+data.pack(side="left", fill="both", expand=True)
+
+# Konfigurierung der Spalten
+data.column("Nr", width=20)
+data.column("Frage", width=480)
+
+# Einsetzen der Spalten
+for col in columns:
+    data.heading(col, text=col)
+
+# Einfügen der Scrollleiste
+scrollbar = ttk.Scrollbar(dbLabel, orient="vertical", command=data.yview)
+data.configure(yscrollcommand=scrollbar.set)
+scrollbar.pack(side="right", fill="y")
+
 
 #Fragen container
 fragenContainer = Label(root, bg="lightgrey")
@@ -171,7 +195,7 @@ search = Button(root, bg="red", text="SEARCH", command = search_popup)
 search.place(x=800, y=700, width=300, height=70)
 
 
-
+updateData(data)
 
 
 root.mainloop()

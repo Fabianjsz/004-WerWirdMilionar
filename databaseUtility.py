@@ -11,7 +11,7 @@ tableName = "Fragen"
 
 #Funktionen
 
-def createTable(dbName):
+def createTable():
     con = sqlite3.connect(dbName)
     cursor = con.cursor()
     cursor.execute("CREATE TABLE Fragen(nr INTEGER PRIMARY KEY AUTOINCREMENT, Frage VARCHAR, A1 VARCHAR, A2 VARCHAR, A3 VARCHAR, A4 VARCHAR);")
@@ -27,12 +27,13 @@ def insertFrage(Frage, A1, A2, A3, A4):
     con.commit()
     con.close()
 
-def returnTable(dbName, tableName):
+def returnTable():
     con = sqlite3.connect(dbName)
     cursor = con.cursor()
-    cursor.execute(f"Select * FROM {tableName};")
-    print(cursor.fetchall(),)
+    cursor.execute(f"Select nr,Frage FROM {tableName};")
+    data = cursor.fetchall()
     con.close()
+    return data
 
 def checkFrage(fragenNr):
     con = sqlite3.connect(dbName)
