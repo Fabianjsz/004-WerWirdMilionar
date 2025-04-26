@@ -1,2 +1,5 @@
 - [ ] Edit editDatabase so you can edit multiple Entrys in one primary key entry
-- [ ] Create a second popup function, for when deleting or editing data
+- [x] Create a second popup function, for when deleting or editing data
+- [ ] Implement data selection via double click on treeview
+- [ ] make it so deletion is also selected via treeview
+- [ ] display data in specified labels on gui
