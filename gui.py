@@ -89,12 +89,12 @@ def edit_item(fragenNr):
     dEntry.insert(0, question[5])
 
 
-    confirmation = Button(win, text="Bearbeiten",command=lambda: editQuestion(fragenNr, question[1:]))
+    confirmation = Button(win, text="Bearbeiten",command=lambda: editQuestion(fragenNr, question[1:], win))
     confirmation.place(x=150, y=240, width=100)
 
 
 
-def editQuestion(fragenNr, question):
+def editQuestion(fragenNr, question, win):
     edit = (frageEntry.get(), aEntry.get(), bEntry.get(),cEntry.get(),dEntry.get())
 
     print(f"question {question}, and edit {edit}")
@@ -105,6 +105,12 @@ def editQuestion(fragenNr, question):
     else:
         pass
     updateData()
+    temp = fetchQuestion(fragenNr)
+    print(temp)
+    tempo = temp[0]
+    print(tempo)
+    updateLable(fragenNr,tempo[1],tempo[2],tempo[3],tempo[4],tempo[5])
+    win.destroy()
 
 
 
@@ -240,7 +246,7 @@ def on_double_click(event):
 update Lable
 ersetzt die alten Inhalte mit den neuen aus den vorhergesehenen Variablen
 """
-def updateLable(fragenNummer, fragenText, aText, bText, cText, dText):
+def updateLable(fragenNummer,fragenText, aText, bText, cText, dText):
     nrLabel.config(text=fragenNummer)
     fragenLabel.config(text=fragenText)
     antwortA.config(text=aText)
@@ -352,7 +358,3 @@ antwortD.place(x=100,width=550, height=70)
 
 
 updateData()
-
-
-root.mainloop()
-
