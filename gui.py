@@ -2,7 +2,7 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk, simpledialog, messagebox
-from databaseUtility import checkFrage, returnTable, returnQuestion, fetchQuestion, deleteFrage, editFrage
+from databaseUtility import checkFrage, returnTable, returnQuestion, fetchQuestion, deleteFrage, editFrage, insertFrage
 from tkinter.scrolledtext import ScrolledText
 from tkinter.messagebox import showinfo
 
@@ -99,11 +99,55 @@ def editQuestion(fragenNr, question):
     updateData()
 
 
-def add_item():
-    pass
 
-def popup_showinfo():
-    showinfo("ShowInfo", "Hello World!")
+"""
+edit item
+Bearbeitungsfenster für das Bearbeiten von Fragen
+"""
+
+def add_item():
+    global frageEntry, aEntry, bEntry, cEntry, dEntry
+
+    win = tk.Toplevel()
+    win.wm_title("Frage erstellen")
+    win.geometry("400x300")
+
+    edit = Label(win, text="Frage Erstellen")
+    edit.place(x=0, y=0, width=400)
+
+    frageEntry = Entry(win)
+    frageEntry.place(x=30, y=20, width=340)
+
+    antwortLabel = Label(win, text="Antworten Erstellen")
+    antwortLabel.place(x=0, y=70, width=400)
+
+    aEntry = Entry(win)
+    aEntry.place(x=30, y=100, width=340)
+
+    bEntry = Entry(win)
+    bEntry.place(x=30, y=130, width=340)
+
+    cEntry = Entry(win)
+    cEntry.place(x=30, y=160, width=340)
+
+    dEntry = Entry(win)
+    dEntry.place(x=30, y=190, width=340)
+
+    confirmation = Button(win, text="Frage hinzufügen",command=lambda: createFrage(win))
+    confirmation.place(x=150, y=240, width=100)
+
+    
+def popup_showinfo(text):
+    showinfo(f"Information", f"{text}")
+
+
+
+def createFrage(win):
+    insertFrage(frageEntry.get(), aEntry.get(), bEntry.get(), cEntry.get(), dEntry.get())
+    popup_showinfo("Frage wurde erfolgreich eingefügt!")
+    win.destroy()
+
+
 
 
 
@@ -154,7 +198,7 @@ def show_popup(event):
         menu = tk.Menu(root, tearoff=0)
         menu.add_command(label="Bearbeiten", command=lambda: edit_item(fragenNr))
         menu.add_command(label="Löschen", command=lambda:delete_item(fragenNr))
-        menu.add_command(label="Neue Frage", command=lambda: add_item)
+        menu.add_command(label="Neue Frage", command=add_item)
         menu.post(event.x_root, event.y_root)
 
 
@@ -297,17 +341,6 @@ letterFour.place(width=100, height= 70)
 
 antwortD = Label(answerFourContainer, bg="grey", text=dText)
 antwortD.place(x=100,width=550, height=70)
-
-
-
-#Edit
-edit = Button(root, bg="red", text="EDIT")
-edit.place(x=50, y=700, width=300, height=70)
-
-delete = Button(root, bg="red", text="DELETE")
-delete.place(x=400, y=700, width=300, height=70)
-
-
 
 
 updateData()
