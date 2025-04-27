@@ -55,10 +55,10 @@ def updateData():
     tempData = returnTable()
     i = 1
     for row in tempData:
-        print(f"{i}, {row}")
+        #print(f"Laufvariable:{i}, datenTuple{row}")
         tempTuple = tempData[i-1]
         temp = tempTuple[0]
-        data.insert("", tk.END, iid=temp, values=(i, row[1]))
+        data.insert("", tk.END, iid=temp, values=(i, row[1])) # iid == primary key Fragen
         i = i + 1
 
 
@@ -72,9 +72,7 @@ def show_popup(event):
     selected_item = data.identify_row(event.y)
     if selected_item:
         data.selection_set(selected_item)
-        temp = data.item(selected_item, "values")
-        fragenNr = temp[0]
-        print(fragenNr)
+        fragenNr = selected_item
 
         menu = tk.Menu(root, tearoff=0)
         menu.add_command(label="Bearbeiten", command=lambda: edit_item(fragenNr))
@@ -89,10 +87,9 @@ Reagiert auf Doppelklick auf dem Treeviewfenster und gibt die ausgewählte Frage
 def on_double_click(event):
     
 
-    selected_item = data.selection()[0]  # Item Id wird ausgelesen
-    values = data.item(selected_item, "values")  # Item Id wird in die einzelnen daten übersetzt, wobei die FragenNr im index [0] steckt
-
-    displayData = fetchQuestion(values[0])
+    selected_item = data.selection()[0]  # da der primary key im iid ist, wird hier der primary key ausgegeben
+    
+    displayData = fetchQuestion(selected_item)
     nonTuple = displayData[0]
 
     nonTuple = displayData[0]
