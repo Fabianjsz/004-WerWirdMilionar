@@ -13,4 +13,5 @@ from gui import *
 
 # Main funktion
 if __name__ == "__main__":
-    print("hello world")
+    
+    root.mainloop()
