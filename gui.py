@@ -1,16 +1,16 @@
 #import
 from tkinter import *
 import tkinter as tk
-from tkinter import ttk
-from utility import informationWindow
-from databaseUtility import checkFrage, returnTable, returnQuestion, fetchQuestion
+from tkinter import ttk, simpledialog, messagebox
+from databaseUtility import checkFrage, returnTable, returnQuestion, fetchQuestion, deleteFrage
 from tkinter.scrolledtext import ScrolledText
+from tkinter.messagebox import showinfo
 
 
 
 #Variablen
 
-global fragenText, aText, bText, cText, dText, fragenNummer
+global fragenText, aText, bText, cText, dText, fragenNummer, data
 
 fragenNummer = "001"
 fragenText = "Frage"
@@ -22,50 +22,6 @@ dText = "Antwort D"
 
 #funktion
 
-
-    
-
-def delete_popup():
-    win = tk.Toplevel()
-    win.wm_title("Frage Löschen")
-    win.geometry("200x80")
-    
-    deleteLabel = Label(win, text="Welche Nummer willst du Löschen?")
-    deleteLabel.place(width=200)
-    
-    eingabe = tk.Entry(win)
-    eingabe.place(width=40, y=20, x=80)
-    
-    deleteButton = Button(win, text="Lösche Nummer", bg="red", command=lambda:confirmation_window(eingabe))
-    deleteButton.place(width = 100, y=50, x =50)
-
-
-def confirmation_window(entry):
-    confirmation = tk.Toplevel()
-    confirmation.wm_title("sind sie sich sicher?")
-    confirmation.geometry("200x80")
-    
-    conLabel = Label(confirmation, text="möchten sie die Frage löschen?")
-    conLabel.place(width=200)
-    
-    yes = Button(confirmation, text="Ja", bg="green", fg="white", command=lambda:confirmation_yes(entry))
-    yes.place(y=20,width=100, height=60)    
-
-    no = Button(confirmation, text="Nein",bg="red", fg="white", command=lambda:confirmation_no())
-    no.place(y=20, x=100, width=100, height="60")
-
-
-def confirmation_yes(entry):
-    fragenNr = entry.get()
-    print(checkFrage(fragenNr))
-
-
-
-    
-    
-def confirmation_no():
-    pass
-
 """
 edit_item
 
@@ -73,39 +29,36 @@ edit_item
 def edit_item():
     pass
 
+
 """
 delete_item
 
 """
-def delete_item():
-    pass
+def delete_item(fragenNr):
+    #bestätigung des Löschvorganges
+    answer = messagebox.askyesno("löschen", "Wollen sie diese Frage löschen?")
+    if answer:
+        deleteFrage(fragenNr)
+        showinfo("", f"Frage {fragenNr} wurde erfolgreich gelöscht")
+    updateData()
+
 
 
 """
 Update Data
 Setzt die in die Funktion eingesetzten Daten in das Treeviewfenster
 """
-def updateData(data):
+def updateData():
+    for item in data.get_children():
+        data.delete(item)
+
     tempData = returnTable()
+    
     for row in tempData:
+        temp = row[0]
+        temp = tempData[0]
         data.insert("", tk.END, values=row)
 
-
-"""
-visualize Data
-Hollt sich daten mit der returnTable Funktion und zeigt diese dann in den vorgesehenen Fenstern an
-"""
-def visualizeData(fragenNr):
-    displayData = returnQuestion(fragenNr)
-    nonTuple = displayData[0]
-    fragenNummer = nonTuple[0]
-    fragenText = nonTuple[0]
-    aText = nonTuple[0]
-    bText = nonTuple[0]
-    cText = nonTuple[0]
-    dText = nonTuple[0]
-
-    updateLable()
 
 
 """
@@ -117,10 +70,13 @@ def show_popup(event):
     selected_item = data.identify_row(event.y)
     if selected_item:
         data.selection_set(selected_item)
+        temp = data.item(selected_item, "values")
+        fragenNr = temp[0]
+        print(fragenNr)
 
         menu = tk.Menu(root, tearoff=0)
-        menu.add_command(label="Bearbeiten", command=lambda: edit_item(selected_item))
-        menu.add_command(label="Löschen", command=lambda:delete_item(selected_item))
+        menu.add_command(label="Bearbeiten", command=lambda: edit_item(fragenNr))
+        menu.add_command(label="Löschen", command=lambda:delete_item(fragenNr))
         menu.post(event.x_root, event.y_root)
 
 
@@ -129,6 +85,7 @@ on double click
 Reagiert auf Doppelklick auf dem Treeviewfenster und gibt die ausgewählte FragenNr weiter an die returnTable Funktion
 """
 def on_double_click(event):
+    
 
     selected_item = data.selection()[0]  # Item Id wird ausgelesen
     values = data.item(selected_item, "values")  # Item Id wird in die einzelnen daten übersetzt, wobei die FragenNr im index [0] steckt
@@ -147,6 +104,7 @@ def on_double_click(event):
     dText = nonTuple[5]
 
     updateLable(fragenNummer,fragenText, aText, bText, cText, dText)
+
 
 
 """
@@ -275,7 +233,7 @@ delete.place(x=400, y=700, width=300, height=70)
 
 
 
-updateData(data)
+updateData()
 
 
 root.mainloop()

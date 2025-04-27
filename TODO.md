@@ -6,7 +6,8 @@
 
 ## Must do's
 
-- [ ] make it so deletion is also selected via treeview
+- [x] make it so deletion is also selected via treeview
+- [ ] Fix the spaces inbetween primary key entrys caused by deletion
 - [ ] create a gui for question edits, with filled out entrys for answer a-d
 - [ ] Edit editDatabase so you can edit multiple Entrys in one primary key entry
 - [ ] Create a playing mask
