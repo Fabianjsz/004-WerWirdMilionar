@@ -35,6 +35,22 @@ def returnTable():
     con.close()
     return data
 
+def returnQuestion(fragenNr):
+    con = sqlite3.connect(dbName)
+    cursor = con.cursor()
+    cursor.execute(f"Select nr,Frage FROM {tableName} WHERE nr = {fragenNr};")
+    data = cursor.fetchall()
+    con.close()
+    return data
+
+def fetchQuestion(fragenNr):
+    con = sqlite3.connect(dbName)
+    cursor = con.cursor()
+    cursor.execute(f"SELECT * FROM Fragen WHERE nr = {fragenNr}")
+    data = cursor.fetchall()
+    con.close()
+    return data
+
 def checkFrage(fragenNr):
     con = sqlite3.connect(dbName)
     cursor = con.cursor()
@@ -51,16 +67,14 @@ def deleteFrage(fragenNr):
     con.close()
     informationWindow(f"Frage {fragenNr} wurde gelöscht")
 
-def editFrage():
-    fragenNr = input("welche Frage soll verändert werden? ")
-    datensatz = input("welche Zeile soll bearbeitet werden? ")
-    neuerInhalt = input("was soll im neuen Satz stehen? ")
+"""
+def editFrage(fragenNr):
     con = sqlite3.connect(dbName)
     cursor = con.cursor()
     cursor.execute(f"UPDATE Fragen SET {datensatz} = '{neuerInhalt}' WHERE nr = {fragenNr};")
     con.commit()
     con.close
-    
+"""
 
 
 def closeConnection(dbName):
@@ -88,7 +102,3 @@ def exampleQuestions():
     insertFrage("Wie viele Beine hat eine Spinne?", "8", "6", "10", "12")
     insertFrage("Wer schrieb \"Die Verwandlung\"?", "Franz Kafka", "Hermann Hesse", "Bertolt Brecht", "Stefan Zweig")
     insertFrage("Was ist die Hauptstadt von Spanien?", "Madrid", "Barcelona", "Sevilla", "Valencia")
-
-
-
-

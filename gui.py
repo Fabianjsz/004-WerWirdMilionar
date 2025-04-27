@@ -3,12 +3,16 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from utility import informationWindow
-from databaseUtility import checkFrage, returnTable
+from databaseUtility import checkFrage, returnTable, returnQuestion, fetchQuestion
 from tkinter.scrolledtext import ScrolledText
 
 
 
 #Variablen
+
+global fragenText, aText, bText, cText, dText, fragenNummer
+
+fragenNummer = "001"
 fragenText = "Frage"
 aText = "Antwort A"
 bText = "Antwort B"
@@ -18,8 +22,7 @@ dText = "Antwort D"
 
 #funktion
 
-def edit_popup():
-    pass
+
     
 
 def delete_popup():
@@ -63,29 +66,100 @@ def confirmation_yes(entry):
 def confirmation_no():
     pass
 
+"""
+edit_item
+
+"""
+def edit_item():
+    pass
+
+"""
+delete_item
+
+"""
+def delete_item():
+    pass
 
 
-
-def search_popup():
-    win = tk.Toplevel()
-    win.wm_title("Frage Suchen")
-    win.geometry("200x80")
-    
-    searchLabel = Label(win, text="Welche Nummer willst du suchen?")
-    searchLabel.place(width=200)
-    
-    eingabe = tk.Entry(win)
-    eingabe.place(width=40, y=20, x=80)
-    
-    searchButton = Button(win, text="Suche Nummer", bg="red")
-    searchButton.place(width = 100, y=50, x =50)
-    
-
+"""
+Update Data
+Setzt die in die Funktion eingesetzten Daten in das Treeviewfenster
+"""
 def updateData(data):
     tempData = returnTable()
     for row in tempData:
         data.insert("", tk.END, values=row)
 
+
+"""
+visualize Data
+Hollt sich daten mit der returnTable Funktion und zeigt diese dann in den vorgesehenen Fenstern an
+"""
+def visualizeData(fragenNr):
+    displayData = returnQuestion(fragenNr)
+    nonTuple = displayData[0]
+    fragenNummer = nonTuple[0]
+    fragenText = nonTuple[0]
+    aText = nonTuple[0]
+    bText = nonTuple[0]
+    cText = nonTuple[0]
+    dText = nonTuple[0]
+
+    updateLable()
+
+
+"""
+show popup
+erstellt ein kontextMenü bei Rechtsklick auf dem Treeview
+"""
+def show_popup(event):
+
+    selected_item = data.identify_row(event.y)
+    if selected_item:
+        data.selection_set(selected_item)
+
+        menu = tk.Menu(root, tearoff=0)
+        menu.add_command(label="Bearbeiten", command=lambda: edit_item(selected_item))
+        menu.add_command(label="Löschen", command=lambda:delete_item(selected_item))
+        menu.post(event.x_root, event.y_root)
+
+
+"""
+on double click
+Reagiert auf Doppelklick auf dem Treeviewfenster und gibt die ausgewählte FragenNr weiter an die returnTable Funktion
+"""
+def on_double_click(event):
+
+    selected_item = data.selection()[0]  # Item Id wird ausgelesen
+    values = data.item(selected_item, "values")  # Item Id wird in die einzelnen daten übersetzt, wobei die FragenNr im index [0] steckt
+
+    displayData = fetchQuestion(values[0])
+    nonTuple = displayData[0]
+
+    nonTuple = displayData[0]
+    # Einsetzen der Daten in globale Variablen
+
+    fragenNummer = nonTuple[0]
+    fragenText = nonTuple[1]
+    aText = nonTuple[2]
+    bText = nonTuple[3]
+    cText = nonTuple[4]
+    dText = nonTuple[5]
+
+    updateLable(fragenNummer,fragenText, aText, bText, cText, dText)
+
+
+"""
+update Lable
+ersetzt die alten Inhalte mit den neuen aus den vorhergesehenen Variablen
+"""
+def updateLable(fragenNummer, fragenText, aText, bText, cText, dText):
+    nrLabel.config(text=fragenNummer)
+    fragenLabel.config(text=fragenText)
+    antwortA.config(text=aText)
+    antwortB.config(text=bText)
+    antwortC.config(text=cText)
+    antwortD.config(text=dText)
 
 
 #GUI
@@ -114,17 +188,24 @@ data.column("Frage", width=480)
 for col in columns:
     data.heading(col, text=col)
 
+# Bind the double-click event
+data.bind("<Double-1>", on_double_click)
+data.bind("<Button-3>", show_popup)
+
+
 # Einfügen der Scrollleiste
 scrollbar = ttk.Scrollbar(dbLabel, orient="vertical", command=data.yview)
 data.configure(yscrollcommand=scrollbar.set)
 scrollbar.pack(side="right", fill="y")
 
 
+
+
 #Fragen container
 fragenContainer = Label(root, bg="lightgrey")
 fragenContainer.place(x=50, y=100, width=650, height=70)
 
-nrLabel = Label(fragenContainer, bg="white", text="001")
+nrLabel = Label(fragenContainer, bg="white", text=fragenNummer)
 nrLabel.place(width=100, height=70)
 
 fragenLabel = Label(fragenContainer, bg="lightgreen", text=fragenText)
@@ -185,14 +266,13 @@ antwortD.place(x=100,width=550, height=70)
 
 
 #Edit
-edit = Button(root, bg="red", text="EDIT", command = edit_popup)
+edit = Button(root, bg="red", text="EDIT")
 edit.place(x=50, y=700, width=300, height=70)
 
-delete = Button(root, bg="red", text="DELETE", command = delete_popup)
+delete = Button(root, bg="red", text="DELETE")
 delete.place(x=400, y=700, width=300, height=70)
 
-search = Button(root, bg="red", text="SEARCH", command = search_popup)
-search.place(x=800, y=700, width=300, height=70)
+
 
 
 updateData(data)
