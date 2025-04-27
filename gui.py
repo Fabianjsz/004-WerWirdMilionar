@@ -53,11 +53,13 @@ def updateData():
         data.delete(item)
 
     tempData = returnTable()
-    
+    i = 1
     for row in tempData:
-        temp = row[0]
-        temp = tempData[0]
-        data.insert("", tk.END, values=row)
+        print(f"{i}, {row}")
+        tempTuple = tempData[i-1]
+        temp = tempTuple[0]
+        data.insert("", tk.END, iid=temp, values=(i, row[1]))
+        i = i + 1
 
 
 
@@ -139,8 +141,8 @@ data = ttk.Treeview(dbLabel, columns=columns, show="headings")
 data.pack(side="left", fill="both", expand=True)
 
 # Konfigurierung der Spalten
-data.column("Nr", width=20)
-data.column("Frage", width=480)
+data.column("Nr", width=50)
+data.column("Frage", width=450)
 
 # Einsetzen der Spalten
 for col in columns:
