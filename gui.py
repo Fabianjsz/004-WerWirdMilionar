@@ -159,6 +159,7 @@ def popup_showinfo(text):
 def createFrage(win):
     insertFrage(frageEntry.get(), aEntry.get(), bEntry.get(), cEntry.get(), dEntry.get())
     popup_showinfo("Frage wurde erfolgreich eingefügt!")
+    updateData()
     win.destroy()
 
 
