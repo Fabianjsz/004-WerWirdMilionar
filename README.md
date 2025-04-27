@@ -19,4 +19,5 @@ In diesem Projekt, habe ich mich mit folgenden Punkten exessiv beschäftigt:
 Für einfache Einrichtung liegt in der Directory eine Datei bereit, welche 'setup.py' heißt. Diese Datei,
 
 - Baut die Datenbank 'WerWirdMilionar.db' auf
-- Fügt 80 Beispielfragen Hinzu
+- Fügt 90 Beispielfragen Hinzu
+- Main.py öffnen
