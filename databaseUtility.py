@@ -1,3 +1,10 @@
+"""
+Diese Datei beinhaltet benötigte Funktionen, um mit der Datenbank zu Kommunizieren
+Name: databaseUtility.py
+Autor: Fabianjsz
+Datum: 27.04.2025
+"""
+
 #import
 import sqlite3
 import os

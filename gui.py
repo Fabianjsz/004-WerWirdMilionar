@@ -1,3 +1,11 @@
+"""
+Diese Datei beinhaltet die gesammte GUI und Funktionen, die auf databaseUtility verweisen
+Name: gui.py
+Autor: Fabianjsz
+Datum: 27.04.2025
+"""
+
+
 #import
 from tkinter import *
 import tkinter as tk
