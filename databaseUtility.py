@@ -66,14 +66,15 @@ def deleteFrage(fragenNr):
     con.close()
     
 
-"""
-def editFrage(fragenNr):
+
+def editFrage(fragenNr, inputfrage, antwortA, antwortB, antwortC, antwortD):
     con = sqlite3.connect(dbName)
     cursor = con.cursor()
-    cursor.execute(f"UPDATE Fragen SET {datensatz} = '{neuerInhalt}' WHERE nr = {fragenNr};")
+    print(inputfrage)
+    cursor.execute(f"UPDATE Fragen SET Frage = '{inputfrage}', A1 = '{antwortA}', A2 = '{antwortB}', A3 = '{antwortC}', A4 = '{antwortD}' WHERE nr = {fragenNr};")
     con.commit()
     con.close
-"""
+
 
 
 def closeConnection(dbName):

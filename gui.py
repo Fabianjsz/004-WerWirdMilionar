@@ -2,7 +2,7 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk, simpledialog, messagebox
-from databaseUtility import checkFrage, returnTable, returnQuestion, fetchQuestion, deleteFrage
+from databaseUtility import checkFrage, returnTable, returnQuestion, fetchQuestion, deleteFrage, editFrage
 from tkinter.scrolledtext import ScrolledText
 from tkinter.messagebox import showinfo
 
@@ -38,34 +38,69 @@ def delete_popup():
     deleteButton = Button(win, text="Lösche Nummer", bg="red")
     deleteButton.place(width = 100, y=50, x =50)
 
+
+"""
+edit item
+Bearbeitungsfenster für das Bearbeiten von Fragen
+"""
 def edit_item(fragenNr):
+    global frageEntry, aEntry, bEntry, cEntry, dEntry
+
     win = tk.Toplevel()
     win.wm_title("Frage Bearbeiten")
     win.geometry("400x300")
 
+    # Fetch data from database
+    questionTuple = fetchQuestion(fragenNr)
+    question = questionTuple[0]
+
     edit = Label(win, text="Frage Bearbeiten")
     edit.place(x=0, y=0, width=400)
 
-    frageEntry = Entry(win, text="hallo")
+    frageEntry = Entry(win)
     frageEntry.place(x=30, y=20, width=340)
+    frageEntry.insert(0, question[1])
 
-    antwortLabel = Label(win, text="Antworten Bearbeiten")
+    antwortLabel = Label(win, text="Antworten bearbeiten")
     antwortLabel.place(x=0, y=70, width=400)
 
-    aEntry = Entry(win, text="hallo")
+    aEntry = Entry(win)
     aEntry.place(x=30, y=100, width=340)
+    aEntry.insert(0, question[2])
 
-    bEntry = Entry(win, text="schatz")
+    bEntry = Entry(win)
     bEntry.place(x=30, y=130, width=340)
+    bEntry.insert(0, question[3])
 
-    cEntry = Entry(win, text="Wie")
+    cEntry = Entry(win)
     cEntry.place(x=30, y=160, width=340)
+    cEntry.insert(0, question[4])
 
-    dEntry = Entry(win, text="gehts")
+    dEntry = Entry(win)
     dEntry.place(x=30, y=190, width=340)
+    dEntry.insert(0, question[5])
 
-    confirmation = Button(win, text="Bearbeiten")
+
+    confirmation = Button(win, text="Bearbeiten",command=lambda: editQuestion(fragenNr, question[1:]))
     confirmation.place(x=150, y=240, width=100)
+
+
+
+def editQuestion(fragenNr, question):
+    edit = (frageEntry.get(), aEntry.get(), bEntry.get(),cEntry.get(),dEntry.get())
+
+    print(f"question {question}, and edit {edit}")
+    if question != edit:
+        print(f"unterschiedlich {edit[0]},{edit[1]},{edit[2]},{edit[3]},{edit[4]}")
+        editFrage(fragenNr, edit[0], edit[1],edit[2],edit[3],edit[4],)
+        updateData()
+    else:
+        pass
+    updateData()
+
+
+def add_item():
+    pass
 
 def popup_showinfo():
     showinfo("ShowInfo", "Hello World!")
@@ -119,6 +154,7 @@ def show_popup(event):
         menu = tk.Menu(root, tearoff=0)
         menu.add_command(label="Bearbeiten", command=lambda: edit_item(fragenNr))
         menu.add_command(label="Löschen", command=lambda:delete_item(fragenNr))
+        menu.add_command(label="Neue Frage", command=lambda: add_item)
         menu.post(event.x_root, event.y_root)
 
 

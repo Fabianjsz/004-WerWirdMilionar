@@ -8,8 +8,9 @@
 
 - [x] make it so deletion is also selected via treeview
 - [x] Fix the spaces inbetween primary key entrys caused by deletion
-- [ ] create a gui for question edits, with filled out entrys for answer a-d
-- [ ] Edit editDatabase so you can edit multiple Entrys in one primary key entry
+- [x] create a gui for question edits, with filled out entrys for answer a-d
+- [x] Edit editDatabase so you can edit multiple Entrys in one primary key entry
+- [ ] create add data into rightclick menu
 
 ## Icing on the cake
 
