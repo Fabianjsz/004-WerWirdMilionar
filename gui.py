@@ -24,15 +24,57 @@ dText = "Antwort D"
 
 """
 edit_item
-
+Fenster, für das Bearbeiten der Fragen
 """
-def edit_item():
-    pass
+def delete_popup():
+    win = tk.Toplevel()
+    win.wm_title("Frage Löschen")
+    win.geometry("200x80")
+
+    deleteLabel = Label(win, text="Welche Nummer willst du Löschen?")
+    deleteLabel.place(width=200)
+    eingabe = tk.Entry(win)
+    eingabe.place(width=40, y=20, x=80)
+    deleteButton = Button(win, text="Lösche Nummer", bg="red")
+    deleteButton.place(width = 100, y=50, x =50)
+
+def edit_item(fragenNr):
+    win = tk.Toplevel()
+    win.wm_title("Frage Bearbeiten")
+    win.geometry("400x300")
+
+    edit = Label(win, text="Frage Bearbeiten")
+    edit.place(x=0, y=0, width=400)
+
+    frageEntry = Entry(win, text="hallo")
+    frageEntry.place(x=30, y=20, width=340)
+
+    antwortLabel = Label(win, text="Antworten Bearbeiten")
+    antwortLabel.place(x=0, y=70, width=400)
+
+    aEntry = Entry(win, text="hallo")
+    aEntry.place(x=30, y=100, width=340)
+
+    bEntry = Entry(win, text="schatz")
+    bEntry.place(x=30, y=130, width=340)
+
+    cEntry = Entry(win, text="Wie")
+    cEntry.place(x=30, y=160, width=340)
+
+    dEntry = Entry(win, text="gehts")
+    dEntry.place(x=30, y=190, width=340)
+
+    confirmation = Button(win, text="Bearbeiten")
+    confirmation.place(x=150, y=240, width=100)
+
+def popup_showinfo():
+    showinfo("ShowInfo", "Hello World!")
+
 
 
 """
 delete_item
-
+Popup welches das Löschen bestätigen soll
 """
 def delete_item(fragenNr):
     #bestätigung des Löschvorganges

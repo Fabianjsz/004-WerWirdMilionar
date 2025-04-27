@@ -7,12 +7,12 @@
 ## Must do's
 
 - [x] make it so deletion is also selected via treeview
-- [ ] Fix the spaces inbetween primary key entrys caused by deletion
+- [x] Fix the spaces inbetween primary key entrys caused by deletion
 - [ ] create a gui for question edits, with filled out entrys for answer a-d
 - [ ] Edit editDatabase so you can edit multiple Entrys in one primary key entry
-- [ ] Create a playing mask
 
 ## Icing on the cake
 
+- [ ] Create a playing mask
 - [ ] Create a main menu gui in which you can enter and exit admin mask and playing mask
 - [ ] refactor databaseUtility, so one function can be reused for multiple cases
