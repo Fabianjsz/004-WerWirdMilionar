@@ -26,6 +26,5 @@
 - [ ] Discplay random Questions on the game interface
 - [ ] randomize the letter of each possible answer
 - [ ] draw an own wer wird milionär logo
+- [x] (Mockup a usable Main Menu)
 - [ ]
-
-- [ ] (Mockup a usable Main Menu)

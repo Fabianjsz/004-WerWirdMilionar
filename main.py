@@ -7,8 +7,9 @@ Datum: 27.04.2025
 
 # Import
 from databaseUtility import *
+from guiMain import *
+from guiGame import *
 from guiAdmin import *
-
 
 
 # Main funktion
