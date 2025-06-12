@@ -7,7 +7,7 @@ Datum: 27.04.2025
 
 # Import
 from databaseUtility import *
-from gui import *
+from guiAdmin import *
 
 
 
