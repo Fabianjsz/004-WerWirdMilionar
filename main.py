@@ -9,7 +9,7 @@ Datum: 27.04.2025
 from databaseUtility import *
 from guiMain import *
 from guiGame import *
-from guiAdmin import *
+#from guiAdmin import *
 
 
 # Main funktion

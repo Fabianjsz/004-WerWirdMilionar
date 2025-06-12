@@ -10,11 +10,11 @@ from guiAdmin import adminRoot
 from tkinter import *
 import tkinter as tk
 from tkinter import PhotoImage
-
+from guiGame import start_quiz
 
 #Functions
 def startGame():
-    pass
+    start_quiz()
 
 def editQuestions():
     if not adminRoot.winfo_exists():
