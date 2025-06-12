@@ -210,7 +210,7 @@ def show_popup(event):
         data.selection_set(selected_item)
         fragenNr = selected_item
 
-        menu = tk.Menu(root, tearoff=0)
+        menu = tk.Menu(adminRoot, tearoff=0)
         menu.add_command(label="Bearbeiten", command=lambda: edit_item(fragenNr))
         menu.add_command(label="Löschen", command=lambda:delete_item(fragenNr))
         menu.add_command(label="Neue Frage", command=add_item)
@@ -258,13 +258,13 @@ def updateLable(fragenNummer,fragenText, aText, bText, cText, dText):
 
 #GUI
 
-root = Tk()
-root.title("Admin Fenster")
-root.geometry("1200x800")
+adminRoot = Tk()
+adminRoot.title("Admin Fenster")
+adminRoot.geometry("1200x800")
 
 
 #DatenbankViewer
-dbLabel = Label(root)
+dbLabel = Label(adminRoot)
 dbLabel.place(x=750, y=50, width=400, height=600) #Anordnung durch Place-Manager
 
 #Definierung der Spalten
@@ -296,7 +296,7 @@ scrollbar.pack(side="right", fill="y")
 
 
 #Fragen container
-fragenContainer = Label(root, bg="lightgrey")
+fragenContainer = Label(adminRoot, bg="lightgrey")
 fragenContainer.place(x=50, y=100, width=650, height=70)
 
 nrLabel = Label(fragenContainer, bg="white", text=fragenNummer)
@@ -307,7 +307,7 @@ fragenLabel.place(x=100, height=70, width=545)
 
 
 #Antworten container
-answContainer = Label(root, bg="lightgrey")
+answContainer = Label(adminRoot, bg="lightgrey")
 answContainer.place(x=50, y=200, width = 650, height=280)
 
 
