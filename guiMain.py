@@ -47,5 +47,4 @@ logo = Label(root)
 logo.image = image
 logo.place(x=300, y=30, width=400, height=400)
 
-
 root.mainloop()
