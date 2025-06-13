@@ -27,6 +27,7 @@ playing = True
 
 #funktionen
 
+
 def guess(answer):
     if answer == "a":
         pass
@@ -51,9 +52,10 @@ def get_questions(fragenNr):
 
     question = tupple[1]
 
+def start_quiz():
+    pass
 #main loop
-while playing:
-    get_questions()
+
 
 #GUI
 quizGame = Tk()
@@ -79,4 +81,5 @@ answerD = Button(quizGame, text=textD, font=("Arial", 14), command=lambda: guess
 answerD.place(x=50,y=320, height=50, width=400)
 
 get_questions(random.randint(1,50))
-quizGame.mainloop()
+
+#quizGame.mainloop()

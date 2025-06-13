@@ -255,6 +255,9 @@ def updateLable(fragenNummer,fragenText, aText, bText, cText, dText):
     antwortC.config(text=cText)
     antwortD.config(text=dText)
 
+def edit_questions():
+    pass
+
 
 #GUI
 
