@@ -41,6 +41,14 @@ def returnTable():
     con.close()
     return data
 
+def get_nr_all():
+    con = sqlite3.connect(dbName)
+    cursor = con.cursor()
+    cursor.execute(f"Select nr FROM {tableName};")
+    data = cursor.fetchall()
+    con.close()
+    return data
+
 def returnQuestion(fragenNr):
     con = sqlite3.connect(dbName)
     cursor = con.cursor()
@@ -181,5 +189,6 @@ def exampleQuestions():
     insertFrage("Wie viele Chromosomen hat ein Mensch?", "46", "44", "48", "50")
     insertFrage("Wer schrieb \"Krieg und Frieden\"?", "Leo Tolstoi", "Fjodor Dostojewski", "Anton Tschechow", "Alexander Puschkin")
     insertFrage("Was ist die Hauptstadt von Chile?", "Santiago", "Valparaíso", "Concepción", "La Serena")
+
 
 
