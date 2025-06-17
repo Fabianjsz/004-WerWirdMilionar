@@ -210,7 +210,7 @@ def show_popup(event):
         data.selection_set(selected_item)
         fragenNr = selected_item
 
-        menu = tk.Menu(adminRoot, tearoff=0)
+        menu = tk.Menu(data, tearoff=0)
         menu.add_command(label="Bearbeiten", command=lambda: edit_item(fragenNr))
         menu.add_command(label="Löschen", command=lambda:delete_item(fragenNr))
         menu.add_command(label="Neue Frage", command=add_item)
@@ -259,106 +259,108 @@ def edit_questions():
     pass
 
 
-#GUI
+def edit_questions(root):
+    
+    global adminRoot, data, nrLabel, fragenLabel, antwortA, antwortB, antwortC, antwortD
+    
+    adminRoot = tk.Toplevel(root)
+    adminRoot.title("Admin Fenster")
+    adminRoot.geometry ("1200x800")
+    
+    #DatenbankViewer
+    dbLabel = Label(adminRoot)
+    dbLabel.place(x=750, y=50, width=400, height=600) #Anordnung durch Place-Manager
 
-adminRoot = Tk()
-adminRoot.title("Admin Fenster")
-adminRoot.geometry("1200x800")
+    #Definierung der Spalten
+    columns = ("Nr", "Frage")
 
+    # Erstellung des Tabellenobjektes
+    data = ttk.Treeview(dbLabel, columns=columns, show="headings")
+    data.pack(side="left", fill="both", expand=True)
 
-#DatenbankViewer
-dbLabel = Label(adminRoot)
-dbLabel.place(x=750, y=50, width=400, height=600) #Anordnung durch Place-Manager
+    # Konfigurierung der Spalten
+    data.column("Nr", width=50)
+    data.column("Frage", width=450)
 
-#Definierung der Spalten
-columns = ("Nr", "Frage")
+    # Einsetzen der Spalten
+    for col in columns:
+        data.heading(col, text=col)
 
-# Erstellung des Tabellenobjektes
-data = ttk.Treeview(dbLabel, columns=columns, show="headings")
-data.pack(side="left", fill="both", expand=True)
-
-# Konfigurierung der Spalten
-data.column("Nr", width=50)
-data.column("Frage", width=450)
-
-# Einsetzen der Spalten
-for col in columns:
-    data.heading(col, text=col)
-
-# Bind the double-click event
-data.bind("<Double-1>", on_double_click)
-data.bind("<Button-3>", show_popup)
-
-
-# Einfügen der Scrollleiste
-scrollbar = ttk.Scrollbar(dbLabel, orient="vertical", command=data.yview)
-data.configure(yscrollcommand=scrollbar.set)
-scrollbar.pack(side="right", fill="y")
+    # Bind the double-click event
+    data.bind("<Double-1>", on_double_click)
+    data.bind("<Button-3>", show_popup)
 
 
-
-
-#Fragen container
-fragenContainer = Label(adminRoot, bg="lightgrey")
-fragenContainer.place(x=50, y=100, width=650, height=70)
-
-nrLabel = Label(fragenContainer, bg="white", text=fragenNummer)
-nrLabel.place(width=100, height=70)
-
-fragenLabel = Label(fragenContainer, bg="lightgreen", text=fragenText)
-fragenLabel.place(x=100, height=70, width=545)
-
-
-#Antworten container
-answContainer = Label(adminRoot, bg="lightgrey")
-answContainer.place(x=50, y=200, width = 650, height=280)
-
-
-#Antwort A
-answerOneContainer = Label(answContainer, bg="green")
-answerOneContainer.place(x=0, y=0, width = 650, height=70)
-
-letterOne = Label(answerOneContainer, text="A")
-letterOne.place(width=100, height= 70)
-
-antwortA = Label(answerOneContainer, bg="grey", text=aText)
-antwortA.place(x=100,width=550, height=70)
+    # Einfügen der Scrollleiste
+    scrollbar = ttk.Scrollbar(dbLabel, orient="vertical", command=data.yview)
+    data.configure(yscrollcommand=scrollbar.set)
+    scrollbar.pack(side="right", fill="y")
 
 
 
-#Antwort B
-answerTwoContainer = Label(answContainer, bg="blue")
-answerTwoContainer.place(x=0, y=70, width = 650, height=70)
+
+    #Fragen container
+    fragenContainer = Label(adminRoot, bg="lightgrey")
+    fragenContainer.place(x=50, y=100, width=650, height=70)
+
+    nrLabel = Label(fragenContainer, bg="white", text=fragenNummer)
+    nrLabel.place(width=100, height=70)
+
+    fragenLabel = Label(fragenContainer, bg="lightgreen", text=fragenText)
+    fragenLabel.place(x=100, height=70, width=545)
 
 
-letterTwo = Label(answerTwoContainer, text="B")
-letterTwo.place(width=100, height= 70)
-
-antwortB = Label(answerTwoContainer, bg="grey", text=bText)
-antwortB.place(x=100,width=550, height=70)
+    #Antworten container
+    answContainer = Label(adminRoot, bg="lightgrey")
+    answContainer.place(x=50, y=200, width = 650, height=280)
 
 
+    #Antwort A
+    answerOneContainer = Label(answContainer, bg="green")
+    answerOneContainer.place(x=0, y=0, width = 650, height=70)
 
-#Antwort C
-answerThreeContainer = Label(answContainer, bg="red")
-answerThreeContainer.place(x=0, y=140, width = 650, height=70)
+    letterOne = Label(answerOneContainer, text="A")
+    letterOne.place(width=100, height= 70)
 
-letterThree = Label(answerThreeContainer,  text="C")
-letterThree.place(width=100, height= 70)
-
-antwortC = Label(answerThreeContainer, bg="grey", text=cText)
-antwortC.place(x=100,width=550, height=70)
-
-
-#Antowrt D
-answerFourContainer = Label(answContainer, bg="yellow")
-answerFourContainer.place(x=0, y=210, width = 650, height=70)
-
-letterFour = Label(answerFourContainer, text="D")
-letterFour.place(width=100, height= 70)
-
-antwortD = Label(answerFourContainer, bg="grey", text=dText)
-antwortD.place(x=100,width=550, height=70)
+    antwortA = Label(answerOneContainer, bg="grey", text=aText)
+    antwortA.place(x=100,width=550, height=70)
 
 
-updateData()
+
+    #Antwort B
+    answerTwoContainer = Label(answContainer, bg="blue")
+    answerTwoContainer.place(x=0, y=70, width = 650, height=70)
+
+
+    letterTwo = Label(answerTwoContainer, text="B")
+    letterTwo.place(width=100, height= 70)
+
+    antwortB = Label(answerTwoContainer, bg="grey", text=bText)
+    antwortB.place(x=100,width=550, height=70)
+
+
+
+    #Antwort C
+    answerThreeContainer = Label(answContainer, bg="red")
+    answerThreeContainer.place(x=0, y=140, width = 650, height=70)
+
+    letterThree = Label(answerThreeContainer,  text="C")
+    letterThree.place(width=100, height= 70)
+
+    antwortC = Label(answerThreeContainer, bg="grey", text=cText)
+    antwortC.place(x=100,width=550, height=70)
+
+
+    #Antowrt D
+    answerFourContainer = Label(answContainer, bg="yellow")
+    answerFourContainer.place(x=0, y=210, width = 650, height=70)
+
+    letterFour = Label(answerFourContainer, text="D")
+    letterFour.place(width=100, height= 70)
+
+    antwortD = Label(answerFourContainer, bg="grey", text=dText)
+    antwortD.place(x=100,width=550, height=70)
+
+
+    updateData()
+
