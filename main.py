@@ -5,17 +5,15 @@ Autor: Fabianjsz
 Datum: 27.04.2025
 """
 
-
 global root
 
 # Import
 from tkinter import *
 import tkinter as tk
 from tkinter import PhotoImage
-from guiGame import start_quiz
+from guiGame import launch_game_ui
 from guiAdmin import edit_questions
 from functools import partial
-
 
 #GUI
 
@@ -26,10 +24,10 @@ root.config(bg="#053C5E")
 
 
 #Buttons
-playButton = Button(root, text="Speil spielen", command=partial(start_quiz))
+playButton = Button(root, text="Speil spielen", command=lambda: launch_game_ui(root))
 playButton.place(x=50,y=300, width=150, height=50)
 
-adminButton = Button(root, text="Fragen bearbeiten", command=partial(edit_questions))
+adminButton = Button(root, text="Fragen bearbeiten", command=lambda: edit_questions(root))
 adminButton.place(x=50, y= 360, width=150, height=50)
 
 #logo
@@ -38,6 +36,8 @@ logo = Label(root, image=photo)
 
 logo.place(x=300, y=30, width=400, height=400)
 logo.image = photo
+
+
 
 
 # Main funktion
